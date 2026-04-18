@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Automatiza tu Negocio con IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+<nav>
+  <div class="logo">auto<span>.</span>ia</div>
+  <div class="nav-badge">Para negocios</div>
+</nav>
+
+<div class="page">
+
+  <!-- ═══════════════════════════════════
+       STEP 1 — TIPO DE NEGOCIO
+  ══════════════════════════════════════ -->
+  <div class="step active" id="s1">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" style="width:25%"></div></div>
+      <p class="progress-label">Paso 1 de 3</p>
+    </div>
+    <h1 class="step-heading">¿Qué tipo de negocio tienes?</h1>
+    <p class="step-sub">Selecciona tu giro para mostrarte soluciones exactas para tu industria.</p>
+    <div class="biz-grid">
+      <div class="biz-card" onclick="selectBiz(this,'Óptica y exámenes de vista')">
+        <span class="biz-icon">👁️</span>
+        <p class="biz-name">Óptica</p>
+        <p class="biz-label">Lentes, exámenes</p>
+      </div>
+      <div class="biz-card" onclick="selectBiz(this,'Clínica dental')">
+        <span class="biz-icon">🦷</span>
+        <p class="biz-name">Dental</p>
+        <p class="biz-label">Consultas, ortodoncia</p>
+      </div>
+      <div class="biz-card" onclick="selectBiz(this,'Restaurante o cafetería')">
+        <span class="biz-icon">🍽️</span>
+        <p class="biz-name">Restaurante</p>
+        <p class="biz-label">Comida, café</p>
+      </div>
+      <div class="biz-card" onclick="selectBiz(this,'Gimnasio o estudio fitness')">
+        <span class="biz-icon">💪</span>
+        <p class="biz-name">Gimnasio</p>
+        <p class="biz-label">Fitness, clases</p>
+      </div>
+      <div class="biz-card" onclick="selectBiz(this,'Salón de belleza o estética')">
+        <span class="biz-icon">💅</span>
+        <p class="biz-name">Belleza</p>
+        <p class="biz-label">Salón, spa</p>
+      </div>
+      <div class="biz-card" onclick="selectBiz(this,'Centro de convenciones o eventos')">
+        <span class="biz-icon">🏛️</span>
+        <p class="biz-name">Eventos</p>
+        <p class="biz-label">Convenciones, salones</p>
+      </div>
+      <div class="biz-card" onclick="selectBiz(this,'Despacho legal o contable')">
+        <span class="biz-icon">⚖️</span>
+        <p class="biz-name">Despacho</p>
+        <p class="biz-label">Legal, contable</p>
+      </div>
+      <div class="biz-card" onclick="selectBiz(this,'Otro negocio de servicios')">
+        <span class="biz-icon">🏢</span>
+        <p class="biz-name">Otro</p>
+        <p class="biz-label">Servicios</p>
+      </div>
+    </div>
+    <button class="btn" id="btn1" disabled onclick="goStep(2)">Continuar</button>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       STEP 2 — RETOS + DATOS
+  ══════════════════════════════════════ -->
+  <div class="step" id="s2">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+      <p class="progress-label">Paso 2 de 3</p>
+    </div>
+    <h1 class="step-heading">¿Cuáles son tus mayores retos?</h1>
+    <p class="step-sub">Elige los que más te afectan. Esto personaliza completamente la propuesta.</p>
+    <div class="chips" id="chipContainer">
+      <div class="chip" onclick="toggleChip(this,'Responder llamadas y WhatsApp constantemente')">Llamadas / WhatsApp constantes</div>
+      <div class="chip" onclick="toggleChip(this,'Agendar citas de forma manual')">Agendar citas a mano</div>
+      <div class="chip" onclick="toggleChip(this,'Clientes que no se presentan a sus citas')">Clientes que no llegan</div>
+      <div class="chip" onclick="toggleChip(this,'Sin tiempo para publicar en redes sociales')">Sin tiempo para redes</div>
+      <div class="chip" onclick="toggleChip(this,'No hay seguimiento a prospectos')">Seguimiento a prospectos</div>
+      <div class="chip" onclick="toggleChip(this,'Cotizaciones lentas')">Cotizaciones lentas</div>
+      <div class="chip" onclick="toggleChip(this,'Coordinación de personal o proveedores')">Coordinación interna</div>
+    </div>
+    <label class="field-label">¿Cuántos clientes atiendes por día?</label>
+    <input class="field" id="clientCount" type="number" min="1" placeholder="Ej: 15"/>
+    <label class="field-label">Tu nombre</label>
+    <input class="field" id="contactName" type="text" placeholder="Ej: Carlos García"/>
+    <label class="field-label">Tu correo (para enviarte la propuesta)</label>
+    <input class="field" id="contactEmail" type="email" placeholder="tucorreo@ejemplo.com"/>
+    <button class="btn" onclick="goStep(3)">Generar mi propuesta personalizada</button>
+    <button class="btn btn-outline" onclick="goStep(1)">← Atrás</button>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       STEP 3 — LOADING
+  ══════════════════════════════════════ -->
+  <div class="step" id="s3">
+    <div class="loading-wrap">
+      <div class="loader"></div>
+      <p class="loading-msg" id="loadMsg">Analizando tu negocio...</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       STEP 4 — LANDING PAGE GENERADA
+  ══════════════════════════════════════ -->
+  <div class="step" id="s4">
+    <span class="lp-tag" id="lpTag"></span>
+    <h2 class="lp-headline" id="lpHeadline"></h2>
+    <p class="lp-sub" id="lpSub"></p>
+
+    <div class="divider"></div>
+
+    <span class="section-tag">Lo que hoy te está costando dinero</span>
+    <div class="pain-list" id="painList"></div>
+
+    <div class="divider"></div>
+
+    <span class="section-tag">Lo que cambia con automatización</span>
+    <div class="stats-grid" id="statsGrid"></div>
+
+    <div class="video-card">
+      <div class="video-thumb" id="videoThumb" onclick="toggleVideo()">
+        <div class="play-ring"><div class="play-tri"></div></div>
+      </div>
+      <div class="video-label" onclick="toggleVideo()">
+        <span id="videoCap">Ver resumen de automatización para tu negocio</span>
+        <span id="videoArrow">▾</span>
+      </div>
+      <div class="video-expand" id="videoExpand">
+        <p class="ve-title" id="vcTitle"></p>
+        <div id="vcPoints"></div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <p class="cta-title" id="ctaTitle"></p>
+      <p class="cta-sub" id="ctaSub"></p>
+      <button class="cta-btn" onclick="openModal()">Quiero una demostración →</button>
+    </div>
+
+    <div class="sent-box" id="sentBox" style="display:none">
+      <div class="sent-icon">✉️</div>
+      <p class="sent-title">¡Propuesta enviada!</p>
+      <p class="sent-sub">Te llegará un correo con los detalles. Pronto te contactaremos para tu demo gratuita.</p>
+    </div>
+
+    <p class="restart-link" onclick="restart()">Comenzar de nuevo</p>
+  </div>
+
+</div><!-- /page -->
+
+<!-- MODAL CONTACTO -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <p class="modal-title">Agenda tu demo gratuita</p>
+    <p class="modal-sub">Déjanos tus datos y te mostramos cómo funciona exactamente para tu negocio, sin compromiso.</p>
+    <label class="field-label">Nombre completo</label>
+    <input class="field" id="modalName" type="text" placeholder="Tu nombre"/>
+    <label class="field-label">WhatsApp</label>
+    <input class="field" id="modalPhone" type="tel" placeholder="+52 000 000 0000"/>
+    <label class="field-label">Correo electrónico</label>
+    <input class="field" id="modalEmail" type="email" placeholder="tucorreo@ejemplo.com"/>
+    <button class="btn" onclick="submitContact()">Solicitar demo gratuita</button>
+    <button class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<footer>auto.ia · Automatización inteligente para negocios</footer>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
