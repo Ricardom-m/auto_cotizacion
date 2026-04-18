@@ -1,6 +1,7 @@
 // ─────────────────────────────────────────
 // CONFIGURACIÓN — reemplaza estos valores
 // ─────────────────────────────────────────
+const WORKER_URL          = 'TU_WORKER_URL'; // ej: https://auto-cotizacion-proxy.TU_USUARIO.workers.dev
 const EMAILJS_PUBLIC_KEY  = 'TU_PUBLIC_KEY';
 const EMAILJS_SERVICE_ID  = 'TU_SERVICE_ID';
 const EMAILJS_TEMPLATE_ID = 'TU_TEMPLATE_ID';
@@ -94,11 +95,11 @@ Responde SOLO con JSON válido, sin texto adicional ni bloques de código markdo
 }`;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 1000,
         messages: [{ role: 'user', content: prompt }]
       })
