@@ -21,7 +21,7 @@ export default {
       const prompt = body.messages[0].content;
 
       const geminiRes = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.GEMINI_API_KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${env.GEMINI_API_KEY}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -35,7 +35,6 @@ export default {
       const data = await geminiRes.json();
       const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
-      // Respuesta en formato compatible con el frontend
       return new Response(JSON.stringify({ content: [{ text }] }), {
         status: 200,
         headers: {
