@@ -109,7 +109,8 @@ Responde SOLO con JSON válido, sin texto adicional ni bloques de código markdo
     const data = await res.json();
     if (!res.ok || !data.content) throw new Error('error');
 
-    const raw = data.content.map(i => i.text || '').join('').replace(/```json|```/g, '').trim();
+    const raw = data.content.map(i => i.text || '').join('')
+      .replace(/```json|```/g, '').replace(/^[^{]*/,'').replace(/[^}]*$/,'').trim();
     const d = JSON.parse(raw);
     generatedContent = d;
 
@@ -120,6 +121,7 @@ Responde SOLO con JSON válido, sin texto adicional ni bloques de código markdo
 
   } catch (e) {
     clearInterval(msgTimer);
+    clearStep4();
     showStep4();
     showToast('Ocurrió un error. Intenta de nuevo.');
   }
@@ -157,6 +159,15 @@ function renderLanding(d) {
 
   document.getElementById('ctaTitle').textContent = d.ctaTitle || '';
   document.getElementById('ctaSub').textContent   = d.ctaSub || '';
+}
+
+function clearStep4() {
+  ['lpTag','lpHeadline','lpSub','vcTitle','ctaTitle','ctaSub'].forEach(id => {
+    document.getElementById(id).textContent = '';
+  });
+  document.getElementById('painList').innerHTML = '';
+  document.getElementById('statsGrid').innerHTML = '';
+  document.getElementById('vcPoints').innerHTML = '';
 }
 
 function showStep4() {
@@ -254,6 +265,7 @@ function showToast(msg) {
 }
 
 function restart() {
+  clearStep4();
   selectedBiz = '';
   selectedChips = [];
   videoOpen = false;
