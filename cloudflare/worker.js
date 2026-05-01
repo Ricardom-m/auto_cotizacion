@@ -33,7 +33,8 @@ export default {
       );
 
       const data = await geminiRes.json();
-      const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      const parts = data.candidates?.[0]?.content?.parts || [];
+      const text = parts.filter(p => !p.thought).map(p => p.text || '').join('');
 
       return new Response(JSON.stringify({ content: [{ text }] }), {
         status: 200,
